@@ -6,6 +6,8 @@ import { OFT } from "@layerzerolabs/oft-evm/contracts/OFT.sol";
 
 contract RWAIncToken is OFT {
     uint32 public constant BASE_MAINNET = 8453;
+    uint32 public constant BASE_TESTNET = 84532;
+
     constructor(
         string memory _name,
         string memory _symbol,
@@ -14,7 +16,7 @@ contract RWAIncToken is OFT {
         address _owner
     ) OFT(_name, _symbol, _lzEndpoint, _delegate) Ownable(_delegate) {
         // if the contract is deployed on base mainnet then mint 1 billion tokens to the _owner
-        if (block.chainid == BASE_MAINNET)
+        if (block.chainid == BASE_MAINNET || block.chainid == BASE_TESTNET)
             // mint 1 billion tokens to the _owner (which is RWA's multisig)
             _mint(_owner, 1_000_000_000 * 10 ** decimals());
     }
